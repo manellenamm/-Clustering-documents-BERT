@@ -3,3 +3,6 @@ scikit-learn
 matplotlib
 umap-learn
 datasets
+bertopic
+hdbscan
+pandas
