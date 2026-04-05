@@ -2,17 +2,18 @@ from sklearn.metrics import silhouette_score, adjusted_rand_score, normalized_mu
 import numpy as np
 
 
-def evaluate_clustering(embeddings, cluster_labels, true_labels=None):
-    unique_labels = set(cluster_labels)
+def evaluate_clustering(embeddings, predicted_labels, true_labels, model_name="Model"):
+    print(f"\n===== Évaluation {model_name} =====")
 
-    if len(unique_labels) <= 1:
-        print("Impossible de calculer le silhouette score : un seul cluster détecté.")
-    else:
-        silhouette = silhouette_score(embeddings, cluster_labels)
-        print("Silhouette Score :", silhouette)
+    valid_mask = np.array(predicted_labels) != -1
+    valid_labels = np.array(predicted_labels)[valid_mask]
 
-    if true_labels is not None:
-        ari = adjusted_rand_score(true_labels, cluster_labels)
-        nmi = normalized_mutual_info_score(true_labels, cluster_labels)
-        print("ARI :", ari)
-        print("NMI :", nmi)
+    if len(set(valid_labels)) > 1:
+        sil = silhouette_score(embeddings[valid_mask], valid_labels)
+        print(f"Silhouette Score : {sil:.4f}")
+
+    ari = adjusted_rand_score(true_labels, predicted_labels)
+    nmi = normalized_mutual_info_score(true_labels, predicted_labels)
+
+    print(f"ARI : {ari:.4f}")
+    print(f"NMI : {nmi:.4f}")

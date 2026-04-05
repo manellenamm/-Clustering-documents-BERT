@@ -2,7 +2,5 @@ sentence-transformers
 scikit-learn
 matplotlib
 umap-learn
-datasets
-bertopic
-hdbscan
-pandas
+numpy
+seaborn

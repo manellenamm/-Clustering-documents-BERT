@@ -1,8 +1,15 @@
 from sentence_transformers import SentenceTransformer
-from sklearn.preprocessing import normalize
+model = SentenceTransformer("all-MiniLM-L6-v2")
 
-def generate_embeddings(docs):
-    model = SentenceTransformer("all-mpnet-base-v2")
-    embeddings = model.encode(docs, show_progress_bar=True)
-    embeddings = normalize(embeddings)
+def generate_embeddings(texts):
+    """
+    Génère des embeddings normalisés (N, 384)
+    """
+    embeddings = model.encode(
+        texts,
+        batch_size=16,
+        show_progress_bar=True,
+        normalize_embeddings=True  
+    )
+    
     return embeddings
