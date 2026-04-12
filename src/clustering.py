@@ -36,20 +36,3 @@ def dbscan_clustering(embeddings, eps, min_samples):
 
 
 
-def find_eps(embeddings, k=10):
-    neigh = NearestNeighbors(n_neighbors=k, metric="cosine")
-    neigh.fit(embeddings)
-
-    distances, _ = neigh.kneighbors(embeddings)
-    
-    # prendre la distance du k-ième voisin
-    k_distances = distances[:, -1]
-    
-    # trier
-    k_distances = np.sort(k_distances)
-
-    plt.plot(k_distances)
-    plt.title("K-distance plot")
-    plt.ylabel("Distance")
-    plt.xlabel("Points triés")
-    plt.show()

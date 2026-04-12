@@ -3,6 +3,10 @@ import numpy as np
 from sklearn.decomposition import PCA
 import umap
 
+
+
+#PCA
+
 """
 def reduce_for_clustering(embeddings, n_components=205):
     
